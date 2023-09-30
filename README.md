@@ -1,5 +1,7 @@
 # Test_Unit_Node
 
+
+
 - npm init -y
 
 ## ESLINT
@@ -10,3 +12,6 @@
 ## JEST
 - npm install jest --save-dev
 - npm run test
+
+- https://jestjs.io/pt-BR/docs/getting-started
+- https://jestjs.io/pt-BR/docs/expect
