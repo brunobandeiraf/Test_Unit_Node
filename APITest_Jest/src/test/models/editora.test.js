@@ -42,7 +42,7 @@ describe('Testando o modelo Editora', () => {
         )
     })
 
-    // Utilizando o MOKE
+    // Utilizando o MOCKS
     it('Deve fazer uma chamada simulada', () => {
         const editora = new Editora(objetoEditora);
 
