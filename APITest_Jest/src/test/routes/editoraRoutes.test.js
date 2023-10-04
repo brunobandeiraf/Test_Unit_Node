@@ -47,13 +47,12 @@ describe('POST em /editoras', () => {
         // recupera o id salvo no teste
         idResposta = resposta.body.content.id;
     })
-});
 
-describe('DELETE em /editoras/id', () => {
-    it('Deletar o recurso adicionado', async () => {
+    it('Deve não adicionar nada ao passar o body vazio', async () => {
         await request(app)
-            .delete(`/editoras/${idResposta}`)
-            .expect(200);
+            .post('/editoras')
+            .send({}) // Não envia nada
+            .expect(400) // 500 servidor com problema 
     })
 });
 
@@ -64,3 +63,21 @@ describe('GET em /editoras/id', () => {
             .expect(200);
     })
 });
+
+describe('PUT em /editoras/id', () => {
+    it('Deve alterar o campo nome', async () => {
+        await request(app)
+            .put(`/editoras/${idResposta}`)
+            .send({ nome: 'Casa do Código'})
+            .expect(204); // 204 tudo certo e não tem conteudo
+    })
+})
+
+describe('DELETE em /editoras/id', () => {
+    it('Deletar o recurso adicionado', async () => {
+        await request(app)
+            .delete(`/editoras/${idResposta}`)
+            .expect(200);
+    })
+});
+
