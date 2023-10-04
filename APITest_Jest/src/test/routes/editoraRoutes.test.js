@@ -1,4 +1,4 @@
-import { beforeEach, afterEach, expect } from '@jest/globals';
+import { beforeEach, afterEach, expect, it, jest } from '@jest/globals';
 import app from '../../app'
 import request from 'supertest'
 
@@ -64,6 +64,13 @@ describe('GET em /editoras/id', () => {
     })
 });
 
+// No caso de jest.spyOn(), não há substituição da implementação original da 
+// função e queremos testar se, por exemplo, a função está sendo “chamada”, 
+// se está recebendo determinado parâmetro, etc. Nesse caso, apenas executar 
+// a função com jest.spyOn() ainda vai executar a função “original” e o código 
+// dentro dela. Porém, também é possível “mocar” (ou seja, substituir a implementação 
+// original de uma função).
+
 describe('PUT em /editoras/id', () => {
 
     // Realiza os 3 testes simultaneamente
@@ -74,10 +81,17 @@ describe('PUT em /editoras/id', () => {
         ['email', { email: 'cdc@cdc.com' }]
     ])
     ('Deve alterar o campo %s', async (chave, param) => {
-        await request(app)
+        
+        const requisicao = { request };
+        const spy = jest.spyOn(requisicao, 'request');
+
+
+        await requisicao. request(app)
             .put(`/editoras/${idResposta}`)
             .send(param)
             .expect(204); // 204 tudo certo e não tem conteúdo
+
+        expect(spy).toHaveBeenCalled()
     })
 })
 
