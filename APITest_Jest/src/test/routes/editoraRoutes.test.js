@@ -69,11 +69,11 @@ describe('PUT em /editoras/id', () => {
     // Realiza os 3 testes simultaneamente
 
     it.each([
-        { nome: 'Casa do código' }, // 1ª elemento do array
-        { cidade: 'SP' }, // 2ª elemento...
-        { email: 'cdc@cdc.com' }
+        ['nome', { nome: 'Casa do código' }], // 1ª elemento do array
+        ['cidade', { cidade: 'SP' }], // 2ª elemento...
+        ['email', { email: 'cdc@cdc.com' }]
     ])
-    ('Deve alterar o campo nome', async (param) => {
+    ('Deve alterar o campo %s', async (chave, param) => {
         await request(app)
             .put(`/editoras/${idResposta}`)
             .send(param)
